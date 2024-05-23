@@ -63,23 +63,28 @@ def flash_off():
     """
     pixels1.fill((0, 0, 0))
 
+# Defines a variable for the time when the script started running
+start_time = time.time()
+
 # Start of imaging system script
 i = 0	# Counter for image file
 image_size(setup.width,setup.height) # Set image size
 manual_focus(setup.lens_position) # Set lens focus
-# flash_countdown() # Trigger LED flash countdown
-
-# Defines a variable for the time when the script started running
-start_time = time.time()
+flash_countdown() # Trigger LED flash countdown
 # Main loop for capturing images
-while time.time() - start_time < setup.logging_duration:
-    
-    flash_on() # Turn on flash
-    time.sleep(1)
-    capture_image(i, setup.file_type) # Capture image
-    print("Image " + str(i+1)) # Print image number
-    flash_off() # Turn off flash
-    time.sleep(setup.logging_interval) # Wait for logging interval
-    i += 1
-    
-picam2.close() # Close camera
+try:
+    while time.time() - start_time < setup.logging_duration:
+        
+        flash_on() # Turn on flash
+        time.sleep(1)
+        capture_image(i, setup.file_type) # Capture image
+        print("Image " + str(i+1)) # Print image number
+        flash_off() # Turn off flash
+        time.sleep(setup.logging_interval-2) # Wait for logging interval
+        i += 1
+except KeyboardInterrupt:
+    print("KeyboardInterrupt: Exiting Imaging_system script")
+    picam2.close()
+
+finally:
+    picam2.close() # Close camera
