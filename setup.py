@@ -4,7 +4,7 @@ import time, os # For time and file management
 
 logging_duration = 8 # Duration of data logging in seconds
 logging_interval = 5 # Data logging interval in seconds
-pressure_logging_interval = 5 #60 * 15 # Pressure sensor data logging interval: 60 * n, where n is minutes
+pressure_logging_interval = 5 # Pressure sensor data logging interval: 60 * n, where n is minutes
 
 #CAMERA SETUP
 height = 2 * 2600 # Height of the image in pixels
